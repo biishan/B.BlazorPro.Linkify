@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,6 +7,7 @@
     <Authors>Bishan</Authors>
     <RepositoryUrl>https://github.com/biishan/B.BlazorPro.Linkify</RepositoryUrl>
     <PackageTags>linkify,blazor</PackageTags>
+    <Version>1.0.0-preview1</Version>
   </PropertyGroup>
 
   
