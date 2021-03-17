@@ -1,0 +1,29 @@
+﻿@page "/"
+@using B.BlazorPro.Linkify
+@using B.BlazorPro.Linkify.Events
+<h1>Demo Linkify!</h1>
+
+<p>Enter text to Linkify:</p>
+<textarea rows="4" class="form-control" @bind="text" @bind:event="oninput" />
+
+<hr />
+
+<Linkify Text="@text" OnLinkClicked="LinkClicked" />
+
+<ul>
+    <Virtualize Items="logs" TItem="string">
+        <ItemContent>
+            <li>@context</li>
+        </ItemContent>
+    </Virtualize>
+</ul>
+
+@code {
+    string text;
+    ICollection<string> logs = new List<string>();
+
+    protected async Task LinkClicked(ClickEventArgs args)
+    {
+        logs.Add($"{args.Type.ToString()} => {args.Value}");
+    }
+}
