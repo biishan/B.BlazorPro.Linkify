@@ -5,17 +5,17 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D71FC92-0E8E-47AC-AFA2-84448462222C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B.BlazorPro.Linkify", "B.BlazorPro.Linkify\B.BlazorPro.Linkify.csproj", "{60F90B0B-AE85-43D9-B686-03E6AE25F846}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B.BlazorPro.Linkify", "src\B.BlazorPro.Linkify\B.BlazorPro.Linkify.csproj", "{60F90B0B-AE85-43D9-B686-03E6AE25F846}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{D534989B-F5DB-4D81-8951-B47E5AA87A25}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{D534989B-F5DB-4D81-8951-B47E5AA87A25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.SSB", "Blazor.SSB\Blazor.SSB.csproj", "{2A6D030D-D729-499E-897E-E59999EBA11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.SSB", "samples\Blazor.SSB\Blazor.SSB.csproj", "{2A6D030D-D729-499E-897E-E59999EBA11A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{62929614-433E-4D59-BC59-3D1E3190B8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B.BlazorPro.Linkify.Test", "B.BlazorPro.Linkify.Test\B.BlazorPro.Linkify.Test.csproj", "{2B07806D-420D-4B85-A19F-CD0D64733F4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B.BlazorPro.Linkify.Test", "tests\B.BlazorPro.Linkify.Test\B.BlazorPro.Linkify.Test.csproj", "{2B07806D-420D-4B85-A19F-CD0D64733F4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.CSB", "Blazor.CSB\Blazor.CSB.csproj", "{B4460FF6-9BDF-4824-8C85-F758810440AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.CSB", "samples\Blazor.CSB\Blazor.CSB.csproj", "{B4460FF6-9BDF-4824-8C85-F758810440AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
