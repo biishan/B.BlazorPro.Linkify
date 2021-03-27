@@ -1,3 +1,4 @@
+using B.BlazorPro.Linkify.Configuration;
 using Blazor.SSB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -29,6 +30,7 @@ namespace Blazor.SSB
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddBBlazorProLinkify(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

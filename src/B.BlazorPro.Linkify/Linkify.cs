@@ -1,9 +1,11 @@
 ﻿using B.BlazorPro.Linkify.Common;
 using B.BlazorPro.Linkify.Events;
 using B.BlazorPro.Linkify.Helpers;
+using B.BlazorPro.Linkify.Models;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,6 +14,11 @@ namespace B.BlazorPro.Linkify
 {
     public class Linkify : ComponentBase
     {
+        /// <summary>
+        /// Options.
+        /// </summary>
+        [Inject]
+        protected IOptions<BBlazorProLinkifyOptions> Options { get; set; }
         /// <summary>
         /// Text to linkify.
         /// </summary>
@@ -38,9 +45,9 @@ namespace B.BlazorPro.Linkify
         /// </summary>
         [Parameter]
         public EventCallback<ClickEventArgs> OnLinkClicked { get; set; }
-        
-        private HtmlDocument _htmlDoc = new HtmlDocument();
 
+        private HtmlDocument _htmlDoc = new HtmlDocument();
+        
         /// <summary>
         /// Build Render Tree.
         /// </summary>
@@ -59,7 +66,11 @@ namespace B.BlazorPro.Linkify
                 var urlsMatches = Regex.Matches(html, Constant.UrlRegexPattern, RegexOptions.IgnoreCase);
                 foreach (Match urlMatch in urlsMatches)
                 {
-                    html = html.Replace(urlMatch.Value, @$"<a href=""{urlMatch.Value}"">{urlMatch.Value}</a>");
+                    var fullyQualifiedUrl = urlMatch.Value.StartsWith("www", StringComparison.OrdinalIgnoreCase) ? $"https://{urlMatch.Value}" : urlMatch.Value;
+                    if (Options.Value.ShouldLinkify(fullyQualifiedUrl.GetHostName(LinkType.Url), LinkType.Url))
+                    {
+                        html = html.Replace(urlMatch.Value, @$"<a href=""{fullyQualifiedUrl}"">{fullyQualifiedUrl}</a>");
+                    }
                 }
 
                 #endregion
@@ -71,11 +82,18 @@ namespace B.BlazorPro.Linkify
                 {
                     if (emailMatch.Value.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase))
                     {
-                        html = html.Replace(emailMatch.Value, @$"<a href=""{emailMatch.Value}"">{emailMatch.Value}</a>");
+                        var emailAddressWithoutProtocol = emailMatch.Value.Replace("mailto:", "", StringComparison.OrdinalIgnoreCase);
+                        if (Options.Value.ShouldLinkify(emailAddressWithoutProtocol.GetHostName(LinkType.Email), LinkType.Email))
+                        {
+                            html = html.Replace(emailMatch.Value, @$"<a href=""{emailMatch.Value}"">{emailMatch.Value}</a>");
+                        }
                     }
                     else
                     {
-                        html = html.Replace(emailMatch.Value, @$"<a href=""mailto:{emailMatch.Value}"">{emailMatch.Value}</a>");
+                        if (Options.Value.ShouldLinkify(emailMatch.Value.GetHostName(LinkType.Email), LinkType.Email))
+                        {
+                            html = html.Replace(emailMatch.Value, @$"<a href=""mailto:{emailMatch.Value}"">{emailMatch.Value}</a>");
+                        }
                     }
                 }
 
@@ -93,7 +111,6 @@ namespace B.BlazorPro.Linkify
                         if (anchorTagNode != null) // is an anchor tag.
                         {
                             var href = anchorTagNode.Attributes["href"].Value;
-                            href = href.StartsWith("www", StringComparison.OrdinalIgnoreCase) ? $"https://{href}" : href;
                             if (href.StartsWith("mailto:"))
                             {
                                 seq = builder.CreateAnchorTag(seq, LinkType.Email, href, CssClass, this, OnLinkClicked, OpenInNewTab);
