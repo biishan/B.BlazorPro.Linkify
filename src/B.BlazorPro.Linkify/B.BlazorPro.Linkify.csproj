@@ -7,7 +7,7 @@
     <Authors>Bishan</Authors>
     <RepositoryUrl>https://github.com/biishan/B.BlazorPro.Linkify</RepositoryUrl>
     <PackageTags>linkify,blazor</PackageTags>
-    <Version>1.0.0-preview1</Version>
+    <Version>1.0.0-preview2</Version>
   </PropertyGroup>
 
   
